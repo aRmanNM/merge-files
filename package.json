@@ -1,0 +1,124 @@
+{
+  "name": "merge-files",
+  "displayName": "Merge Files for AI",
+  "description": "Collect files and code snippets in a basket and merge them into one text for AI chats.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/armannm/merge-files.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "mergeFiles",
+          "title": "Merge Files",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "mergeFiles": [
+        {
+          "id": "mergeFiles.basket",
+          "name": "Basket"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "mergeFiles.basket",
+        "contents": "The basket is empty.\nRight-click files or folders in the Explorer and choose \"Add to Merge Basket\"."
+      }
+    ],
+    "commands": [
+      {
+        "command": "mergeFiles.addFiles",
+        "title": "Add to Merge Basket"
+      },
+      {
+        "command": "mergeFiles.addSelection",
+        "title": "Add Selection to Merge Basket"
+      },
+      {
+        "command": "mergeFiles.remove",
+        "title": "Remove from Basket",
+        "icon": "$(close)"
+      },
+      {
+        "command": "mergeFiles.clear",
+        "title": "Clear Basket",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "mergeFiles.copy",
+        "title": "Copy Basket to Clipboard",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "mergeFiles.save",
+        "title": "Save Basket to File",
+        "icon": "$(save)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "mergeFiles.addFiles",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "mergeFiles.addFiles",
+          "group": "navigation"
+        },
+        {
+          "command": "mergeFiles.addSelection",
+          "when": "editorHasSelection",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "mergeFiles.copy",
+          "when": "view == mergeFiles.basket",
+          "group": "navigation@1"
+        },
+        {
+          "command": "mergeFiles.save",
+          "when": "view == mergeFiles.basket",
+          "group": "navigation@2"
+        },
+        {
+          "command": "mergeFiles.clear",
+          "when": "view == mergeFiles.basket",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "mergeFiles.remove",
+          "when": "view == mergeFiles.basket",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.0.0"
+  }
+}
